@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Module</title>
+    <link rel="stylesheet" href="./login.component.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            /* background: linear-gradient(to right, #4e54c8, #8f94fb); */
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://media.gettyimages.com/id/1399433814/photo/basic-clothes-stylish-outfit-denim-jacket-and-sneakers-ready-to-wear.jpg?s=612x612&w=0&k=20&c=i4-R07ErqHr-gdXErDA307X-jCYV_HwqKnENPiNvSn8=');
+            background-size: 1350px 900px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .login-container {
+            display: flex;
+            margin-left: 150px;
+            align-items: center;
+            width: 500px;
+            /* height: 350px; */
+        }
+
+        .login-box {
+            display: flex;
+            margin-left: 150px;
+            justify-content: center;
+            width: 400px;
+            /* Adjust width as needed */
+            height: 550px;
+            /* Adjust height as needed */
+            background: transparent;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .signin-section,
+        .welcome-section {
+            width: 400px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .signin-section h2,
+        .welcome-section h2 {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        .input-container label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .input-icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 10px;
+            color: #999;
+        }
+
+        .input-icon input {
+            width: 100%;
+            padding: 10px 10px 10px 30px;
+            /* Adjust padding to account for the icon */
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 10px;
+            background: #555bc4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #8f94fb;
+        }
+
+        .signup-button {
+            padding: 10px;
+            background: white;
+            color: rgb(95, 13, 150);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .signup-button:hover {
+            background: #f5f5f5;
+        }
+
+        .error {
+            font-size: 12px;
+            color: red;
+        }
+
+        .social-media-login {
+            padding: 0px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+        }
+
+        .remember-me {
+            display: flex;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .forgot-password {
+            margin-left: 40px;
+        }
+
+
+        .newAccount {
+            margin: 10px;
+        }
+
+        .signin-section form p {
+            text-decoration: none;
+            margin-top: 30px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-box">
+        <div class="signin-section">
+            <h2>Sign In</h2>
+            <form [formGroup]="customerFormGroup" (ngSubmit)="onSubmit()">
+                <div class="input-container">
+                    <label for="email">Email</label>
+                    <div class="input-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="text" id="email" formControlName="email" placeholder="Email">
+                    </div>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                        <div *ngIf="email.errors['required']">Email is required.</div>
+                        <div *ngIf="email.errors['email']">Invalid email format.</div>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <label for="password">Password</label>
+                    <div class="input-icon">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" formControlName="password" placeholder="Password">
+                    </div>
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
+                        <div *ngIf="password.errors['required']">Password is required.</div>
+                    </div>
+                </div>
+
+                <button type="submit" [disabled]="customerFormGroup.invalid"
+                    style="background-color:	#428de3; height:50px; border-radius: 10px;">Sign In</button>
+                
+                <!-- <button class="signup-button" (click)="redirectToSignup()">REGISTER</button> -->
+                <p>Don't have an account?<a routerLink="/register" style="text-decoration: none;">Register
+                        Here</a></p>
+            </form>
+        </div>
+        <!-- <div class="welcome-section"
+                style="background-color:#86242e;background-position: center; background-size: cover; background-image:url(data:image/jpeg;base64,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)">
+                <h2>Welcome to login</h2>
+                <p>Don't have an account?</p>
+                <button class="signup-button" (click)="redirectToSignup()">REGISTER</button>
+            </div> -->
+    </div>
+
+
+</body>
+
+</html>
